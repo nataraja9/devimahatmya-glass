@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
+import { Mountain } from "lucide-react";
 import { LANGS, setLang, useT, type Lang } from "@/lib/i18n";
 import { HL } from "@/lib/homam-labels";
-import { JOURNEY_RESET } from "@/lib/journey";
+import { YL } from "@/lib/yatra-labels";
 
 export function SiteHeader() {
   const { t, lang } = useT();
@@ -13,7 +14,10 @@ export function SiteHeader() {
           <span className="font-display text-lg text-gold-gradient">{t("appName")}</span>
         </Link>
         <nav className="flex flex-wrap items-center justify-end gap-2 text-base font-[Cinzel] tracking-wide">
-          <Link to="/journey" onClick={() => window.dispatchEvent(new Event(JOURNEY_RESET))} className="rounded-full border border-gold/60 px-3 py-1 text-sm text-gold hover:bg-gold/10">Sankalpa Journey</Link>
+          <Link to="/yatra" className="yatra-btn inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 font-display text-sm font-bold transition-transform hover:scale-105 md:px-5 md:text-base">
+            <Mountain className="h-4 w-4 shrink-0" aria-hidden="true" />
+            {YL.nav[lang]}
+          </Link>
           <Link to="/homam" className="homam-btn rounded-full px-4 py-1.5 font-display text-sm font-bold transition-transform hover:scale-105 md:px-5 md:text-base">
             🔥 {HL.homam[lang]}
           </Link>

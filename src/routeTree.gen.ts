@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as JourneyRouteImport } from './routes/journey'
 import { Route as StudyRouteImport } from './routes/study'
+import { Route as YatraRouteImport } from './routes/yatra'
 import { Route as ChapterNRouteImport } from './routes/chapter.$n'
 import { Route as HomamIndexRouteImport } from './routes/homam.index'
 import { Route as StotraIdRouteImport } from './routes/stotra.$id'
@@ -37,6 +38,11 @@ const StudyRoute = StudyRouteImport.update({
   path: '/study',
   getParentRoute: () => rootRouteImport,
 } as any)
+const YatraRoute = YatraRouteImport.update({
+  id: '/yatra',
+  path: '/yatra',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChapterNRoute = ChapterNRouteImport.update({
   id: '/chapter/$n',
   path: '/chapter/$n',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/guide': typeof GuideRoute
   '/journey': typeof JourneyRoute
   '/study': typeof StudyRoute
+  '/yatra': typeof YatraRoute
   '/chapter/$n': typeof ChapterNRoute
   '/stotra/$id': typeof StotraIdRoute
   '/homam/': typeof HomamIndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/guide': typeof GuideRoute
   '/journey': typeof JourneyRoute
   '/study': typeof StudyRoute
+  '/yatra': typeof YatraRoute
   '/chapter/$n': typeof ChapterNRoute
   '/stotra/$id': typeof StotraIdRoute
   '/homam': typeof HomamIndexRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/guide': typeof GuideRoute
   '/journey': typeof JourneyRoute
   '/study': typeof StudyRoute
+  '/yatra': typeof YatraRoute
   '/chapter/$n': typeof ChapterNRoute
   '/stotra/$id': typeof StotraIdRoute
   '/homam/': typeof HomamIndexRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/guide'
     | '/journey'
     | '/study'
+    | '/yatra'
     | '/chapter/$n'
     | '/stotra/$id'
     | '/homam/'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/guide'
     | '/journey'
     | '/study'
+    | '/yatra'
     | '/chapter/$n'
     | '/stotra/$id'
     | '/homam'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/guide'
     | '/journey'
     | '/study'
+    | '/yatra'
     | '/chapter/$n'
     | '/stotra/$id'
     | '/homam/'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   GuideRoute: typeof GuideRoute
   JourneyRoute: typeof JourneyRoute
   StudyRoute: typeof StudyRoute
+  YatraRoute: typeof YatraRoute
   ChapterNRoute: typeof ChapterNRoute
   StotraIdRoute: typeof StotraIdRoute
   HomamIndexRoute: typeof HomamIndexRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/yatra': {
+      id: '/yatra'
+      path: '/yatra'
+      fullPath: '/yatra'
+      preLoaderRoute: typeof YatraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/chapter/$n': {
       id: '/chapter/$n'
       path: '/chapter/$n'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuideRoute: GuideRoute,
   JourneyRoute: JourneyRoute,
   StudyRoute: StudyRoute,
+  YatraRoute: YatraRoute,
   ChapterNRoute: ChapterNRoute,
   StotraIdRoute: StotraIdRoute,
   HomamIndexRoute: HomamIndexRoute,

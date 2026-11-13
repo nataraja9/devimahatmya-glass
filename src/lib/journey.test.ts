@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { chapterForDay, chaptersForDay, reply, fresh, JOURNEY_DAYS, paceFor, daysSince, starterCards, stylePrefs, weekOf, reminderPlan, sankalpaToken } from "./journey";
+import { chapterForDay, chaptersForDay, reply, fresh, JOURNEY_DAYS, paceFor, daysSince, starterCards, stylePrefs, weekOf, reminderPlan, sankalpaToken, readPeriod, isSkip } from "./journey";
 
 describe("90-day journey", () => {
   it("starts on chapter 1 and ends on chapter 13", () => {
@@ -72,6 +72,14 @@ describe("sankalpa periods", () => {
     expect(sankalpaToken("1")).toBe("999000000001");
     expect(sankalpaToken("482910337").startsWith("999")).toBe(true);
     expect(sankalpaToken("482910338")).toBe("999482910338");
+  });
+  it("reads only the five parayana lengths from a short reply", () => {
+    expect(readPeriod("13")).toBe(13);
+    expect(readPeriod("thirteen")).toBe(13);
+    expect(readPeriod("108 days")).toBe(108);
+    expect(readPeriod("18")).toBeNull();
+    expect(isSkip("skip")).toBe(true);
+    expect(isSkip("a name")).toBe(false);
   });
   it("records a daily reminder across the chosen channels", () => {
     expect(reminderPlan(13, "06:00", "UTC", ["sms", "email", "whatsapp"], "2026-11-13")).toBe("One reminder a day at 06:00 (UTC), for 13 days from 2026-11-13, by SMS, Email, WhatsApp.");

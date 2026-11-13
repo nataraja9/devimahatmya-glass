@@ -12,6 +12,17 @@ export function chapterForDay(day: number, len = JOURNEY_DAYS): number {
 }
 /** Sankalpa periods a learner can choose. */
 export const PERIODS = [1, 8, 13, 90, 108] as const;
+const PERIOD_WORDS: Record<string, number> = { one: 1, eight: 8, thirteen: 13, ninety: 90 };
+/** Read a parayana length from a short reply. Unlisted counts are declined. */
+export function readPeriod(text: string): number | null {
+  const hit = text.match(/(?:^|\D)(108|90|13|8|1)(?!\d)/);
+  if (hit) return Number(hit[1]);
+  return PERIOD_WORDS[text.trim().toLowerCase()] ?? null;
+}
+/** A reply that leaves a question unanswered. */
+export function isSkip(text: string): boolean {
+  return /^(skip|no|none|pass|n\/a|—|-|\.{1,3})$/i.test(text.trim());
+}
 /** Chapters read on a day: short periods (≤13 days) split all 13 chapters across the days; longer ones spread one chapter over several days. */
 export function chaptersForDay(day: number, len = JOURNEY_DAYS): number[] {
   const d = Math.min(Math.max(day, 1), len);
